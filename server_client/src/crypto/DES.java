@@ -25,7 +25,7 @@ public class DES {
         des.init(Cipher.ENCRYPT_MODE, des_key);
 
         String msg = "xxxxxxxxxxxxxxxxxx";
-        byte[] text = msg. getBytes();
+        byte[] text = msg.getBytes();
 
         byte[] encrypted_text = des.doFinal(text);
 
