@@ -1,29 +1,30 @@
 package crypto;
 
 import javax.crypto.*;
-import javax.crypto.spec.DESKeySpec;
+import javax.crypto.spec.DESedeKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Base64;
 
-public class DES {
+public class Triple_DES {
     public static void main(String[] args) throws InvalidKeyException, InvalidKeySpecException,
             NoSuchAlgorithmException, NoSuchPaddingException,
             IllegalBlockSizeException, BadPaddingException, UnsupportedEncodingException {
-        String custom_key = "12345678";
-        DESKeySpec key_spec = new DESKeySpec(custom_key.getBytes());
-        SecretKey des_key = SecretKeyFactory.getInstance("DES").generateSecret(key_spec);
+
+        String custom_key = "123456781234567812345678";
+        DESedeKeySpec key_spec = new DESedeKeySpec(custom_key.getBytes());
+        SecretKey des_key = SecretKeyFactory.getInstance("DESede").generateSecret(key_spec);
 
         byte[] key_byte =des_key.getEncoded();
         String key_str = new String(key_byte);
 
-        System.out.println("DES KEy : " + key_str);
-        System.out.println("DES Key size : " + key_str.length());
+        System.out.println("Triple DES KEy : " + key_str);
+        System.out.println("Triple DES Key size : " + key_str.length());
 
         Cipher des;
-        des = Cipher.getInstance("DES/ECB/PKCS5Padding");
+        des = Cipher.getInstance("DESede/ECB/PKCS5Padding");
         des.init(Cipher.ENCRYPT_MODE, des_key);
 
         String msg = "xxxxxxxxxxxxxxxxx";
@@ -49,3 +50,4 @@ public class DES {
         System.out.println("Plain text :" + new String(decrypted_text));
     }
 }
+
