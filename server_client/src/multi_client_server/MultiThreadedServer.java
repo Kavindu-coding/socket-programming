@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class MultiThreadedServer {
-   private  ServerSocket serverSocket;
+   private final ServerSocket serverSocket;
 
     public MultiThreadedServer(ServerSocket serversocket) {
         this.serverSocket = serversocket;
@@ -16,7 +16,7 @@ public class MultiThreadedServer {
           while(!serverSocket.isClosed()){
 
               Socket socket = serverSocket.accept();
-              System.out.println("A new cliet has connected");
+              System.out.println("A new client has connected");
               ClientHandler clientHandler = new ClientHandler(socket);
 
               Thread thread = new Thread(clientHandler);

@@ -30,7 +30,7 @@ public class MultiThreadedClient {
             Scanner scanner = new Scanner (System.in);
             while(socket.isConnected()){
                 String messageToSend = scanner.nextLine();
-                bufferedWriter.write(username);
+                bufferedWriter.write(username + ": " + messageToSend);
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
             }
@@ -40,18 +40,15 @@ public class MultiThreadedClient {
     }
 
     public void listenForMessage(){
-        new Thread ( new Runnable(){
-            @Override
-            public void run() {
-                String msgFromGroupChat;
+        new Thread (() -> {
+            String msgFromGroupChat;
 
-                while(socket.isConnected()){
-                    try{
-                        msgFromGroupChat = bufferedReader.readLine();
-                        System.out.println(msgFromGroupChat);
-                    } catch (IOException e){
-                        CloseEverything(socket, bufferedReader, bufferedWriter);
-                    }
+            while(socket.isConnected()){
+                try{
+                    msgFromGroupChat = bufferedReader.readLine();
+                    System.out.println(msgFromGroupChat);
+                } catch (IOException e){
+                    CloseEverything(socket, bufferedReader, bufferedWriter);
                 }
             }
         }).start();
@@ -75,7 +72,7 @@ public class MultiThreadedClient {
 
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your username for the group chat");
+        System.out.println("Enter your username for the group chat : ");
         String username = scanner.nextLine();
         Socket socket = new Socket("localhost",9999);
         MultiThreadedClient client = new MultiThreadedClient(socket, username);
