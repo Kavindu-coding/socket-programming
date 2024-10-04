@@ -33,11 +33,11 @@ public class RSA {
         rsa.init(Cipher.ENCRYPT_MODE, pub_key_bob);
 
         Signature rsaSign;
-        rsaSign = Signature.getInstance("RSA");
+        rsaSign = Signature.getInstance("SHA256withRSA");
         rsaSign.initSign(pvt_key_alice);
 
 
-        String msg = "xxxxxxxxxxxxxxxx";
+        String msg = "Kavindu";
         byte[] text = msg.getBytes("UTF-8");
 
         System.out.println("Plain Text : " + msg);
@@ -54,7 +54,7 @@ public class RSA {
         //decrypt
 
         byte[] decoded_enc_text = Base64.getDecoder().decode(encoded_enc_text);
-        rsa.init(Cipher.DECRYPT_MODE,pub_key_bob);
+        rsa.init(Cipher.DECRYPT_MODE,pvt_key_bob);
         byte[] decrypted_text = rsa.doFinal(decoded_enc_text);
 
         System.out.println("Plain text :" + new String(decrypted_text));
